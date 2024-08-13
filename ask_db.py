@@ -22,7 +22,7 @@ db_host = os.getenv("DB_HOST")
 db_port = 3306
 db_user = 'admin'
 db_password = 'your-custom-password'  # Replace with your actual password
-db_name = 'testdb'  # Replace with your actual database name
+db_name = 'employees'  # Replace with your actual database name
 
 # Connect to the database
 def connect_to_db():
@@ -108,6 +108,7 @@ natural_language_query = """Find the total amount spent by each user.
                             Only include users who have spent more than $200.
                             List users with their total spending and the count of orders they made."""
 
+natural_language_query = input("Enter your query: ")
 columns, results = query_database(natural_language_query)
 
 # Convert to pandas DataFrame
