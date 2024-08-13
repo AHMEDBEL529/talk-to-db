@@ -1,58 +1,48 @@
+![Pipeline Schema](images/pipeline-schema.png)
 
-# Welcome to your CDK Python project!
+# Talk-to-DB: Querying Databases Using Natural Language
 
-This is a blank project for CDK development with Python.
+This project allows you to interact with a database using natural language queries, which are converted into SQL using LangChain and Azure OpenAI. The project leverages a Python environment to set up a connection with an RDS MySQL database and execute queries generated from user input.
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+## Project Setup
 
-This project is set up like a standard Python project.  The initialization
-process also creates a virtualenv within this project, stored under the `.venv`
-directory.  To create the virtualenv it assumes that there is a `python3`
-(or `python` for Windows) executable in your path with access to the `venv`
-package. If for any reason the automatic creation of the virtualenv fails,
-you can create the virtualenv manually.
+This repository is structured as a standard Python project. It uses a virtual environment (`.venv`) for managing dependencies.
 
-To manually create a virtualenv on MacOS and Linux:
+### The Database Setup
 
-```
-$ python3 -m venv .venv
-```
+To set up the virtual environment:
 
-After the init process completes and the virtualenv is created, you can use the following
-step to activate your virtualenv.
+1. Clone the repository and navigate to the project directory.
+2. Create a virtual environment:
 
-```
-$ source .venv/bin/activate
-```
+   ```bash
+   $ python3 -m venv .venv
+3. Activate the virtual environment:
 
-If you are a Windows platform, you would activate the virtualenv like this:
+   ```bash
+   $ source .venv/bin/activate
+4. Install the required dependencies:
 
-```
-% .venv\Scripts\activate.bat
-```
+    ```bash
+    $ pip install -r requirements.txt
+5. Deploy the necessary resources using AWS CDK:
 
-Once the virtualenv is activated, you can install the required dependencies.
+    ```bash
+    $ cdk bootstrap
+    $ cdk deploy
+6. After deployment is complete, use the endpoint to set the environment variable:
 
-```
-$ pip install -r requirements.txt
-```
+    ```bash
+    $ export DB_HOST="talktodbstack-example.us-east-1.rds.amazonaws.com"
+7. To load the data into the database, follow the instructions in the following link: [Employee Database Installation](https://dev.mysql.com/doc/employee/en/employees-installation.html)
+8. After extracting the data use the following command to load it to the DB:
 
-At this point you can now synthesize the CloudFormation template for this code.
+    ```bash
+    $ mysql -h $BD_HOST -P 3306 -u admin -p -t < employees.sql
+  
+### The model deployment
 
-```
-$ cdk synth
-```
+For this project I used Azure OpenAI deployment model named gpt-4.
 
-To add additional dependencies, for example other CDK libraries, just add
-them to your `setup.py` file and rerun the `pip install -r requirements.txt`
-command.
 
-## Useful commands
 
- * `cdk ls`          list all stacks in the app
- * `cdk synth`       emits the synthesized CloudFormation template
- * `cdk deploy`      deploy this stack to your default AWS account/region
- * `cdk diff`        compare deployed stack with current state
- * `cdk docs`        open CDK documentation
-
-Enjoy!
