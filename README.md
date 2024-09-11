@@ -38,11 +38,16 @@ To set up the virtual environment:
 8. After extracting the data use the following command to load it to the DB:
 
     ```bash
-    $ mysql -h $BD_HOST -P 3306 -u admin -p -t < employees.sql
+    $ mysql -h $DB_HOST -P 3306 -u admin -p -t < employees.sql
   
 ### The model deployment
 
-For this project I used Azure OpenAI deployment model named gpt-4.
+For this project, I utilized the Azure OpenAI service with a deployed model named gpt-4o-mini.
 
+To set up your environment, export the required API key and endpoint in your terminal:
+
+    ```bash
+    $ export AZURE_OPENAI_API_KEY="<your-azure-openai-api-key>"
+    $ export AZURE_OPENAI_ENDPOINT="<your-azure-openai-endpoint>"
 
 
