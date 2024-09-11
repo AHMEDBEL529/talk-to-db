@@ -7,6 +7,7 @@ import os
 
 os.environ["AZURE_OPENAI_API_KEY"] = os.getenv("AZURE_OPENAI_API_KEY")
 os.environ["AZURE_OPENAI_ENDPOINT"] = os.getenv("AZURE_OPENAI_ENDPOINT")
+
 # Initialize Azure OpenAI client
 llm = AzureChatOpenAI(
     azure_deployment="gpt-4o",  # Your deployment name
@@ -96,24 +97,26 @@ def query_database(natural_language_query):
     if connection:
         schema = get_schema(connection)
         sql_query = generate_sql_query(natural_language_query, schema)
-        print(f"Generated SQL Query:\n {sql_query}")  # Debug print to check the generated SQL query
+        
+        # Organize output with separators
+        print("\n=================================\nGenerated SQL Query:\n=================================")
+        print(f"{sql_query}")
+        
         columns, results = execute_query(connection, sql_query)
         connection.close()
+        
+        print("\n=================================\nQuery Results:\n=================================")
         return columns, results
     else:
         return [], []
 
 # Example usage
-natural_language_query = """Find the total amount spent by each user.
-                            Only include users who have spent more than $200.
-                            List users with their total spending and the count of orders they made."""
-
 natural_language_query = input("Enter your query: ")
 columns, results = query_database(natural_language_query)
 
-# Convert to pandas DataFrame
+# Convert to pandas DataFrame and display the results
 if results:
     df = pd.DataFrame(results, columns=columns)
     print(df)
 else:
-    print("No results returned or query execution failed.")
+    print("\n=================================\nNo results returned or query execution failed.\n=================================")
