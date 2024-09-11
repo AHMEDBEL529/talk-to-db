@@ -42,12 +42,21 @@ To set up the virtual environment:
   
 ### The model deployment
 
-For this project, I utilized the Azure OpenAI service with a deployed model named gpt-4o-mini.
-
-To set up your environment, export the required API key and endpoint in your terminal:
+1. For this project, I utilized the Azure OpenAI service with a deployed model named gpt-4o-mini. To set up your environment, export the required API key and endpoint in your terminal:
 
     ```bash
     $ export AZURE_OPENAI_API_KEY="<your-azure-openai-api-key>"
     $ export AZURE_OPENAI_ENDPOINT="<your-azure-openai-endpoint>"
 
+Ensure you replace <your-azure-openai-api-key> and <your-azure-openai-endpoint> with your actual Azure OpenAI credentials
+
+### Query the Database
+1. To start querying the database using natural language, execute the following command:
+
+    ```bash
+    $ python ask_db.py
+
+You will then be prompted to enter your query in natural language. The system will process it and convert it into an SQL query, execute the query then retrieve data from the database for you.
+
+Enjoy!!
 
